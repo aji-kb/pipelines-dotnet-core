@@ -15,9 +15,9 @@ variables:
 steps:
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
-- task: AzureCLI@2
+- task: DotNetCoreCLI@2
   inputs:
-    azureSubscription: 'Pay-As-You-Go(2)(432d78af-ba15-406c-a213-c101f8b2261f)'
-    scriptType: 'batch'
-    scriptLocation: 'inlineScript'
-    inlineScript: 'dotnet publish --output $(Build.ArtifactStagingDirectory)'
+    command: 'publish'
+    publishWebProjects: true
+    arguments: '--Configuration $(BuildConfiguration) --Output $(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: True
