@@ -21,6 +21,17 @@ steps:
   inputs:
     command: 'test'
     projects: '**/*tests.csproj'
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(System.DefaultWorkingDirectory)/aji-kb.pipelines-dotnet-core/bin'
+    Contents: '**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
 
 - script: echo All Done!
   displayName: 'All Done'
