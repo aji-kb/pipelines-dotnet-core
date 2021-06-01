@@ -7,3 +7,21 @@ pool:
 steps:
 - script: echo "Hello Devops"
   displayName: Render single line
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'restore'
+    projects: '**/*.csproj'
+    feedsToUse: 'config'
+    nugetConfigPath: '/Nuget.config'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: '**/*.csproj'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'test'
+    projects: '**/*tests.csproj'
+
+- script: echo All Done!
+  displayName: 'All Done'
